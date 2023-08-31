@@ -59,37 +59,7 @@ namespace SwaggerPetstore.Standard.Controllers
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("0", CreateErrorCase("successful operation", (_reason, _context) => new ApiException(_reason, _context)))
-)
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Creates list of users with given input array.
-        /// </summary>
-        /// <param name="body">Required parameter: List of user object.</param>
-        public void CreateUsersWithListInput(
-                List<Models.User> body)
-            => CoreHelper.RunVoidTask(CreateUsersWithListInputAsync(body));
-
-        /// <summary>
-        /// Creates list of users with given input array.
-        /// </summary>
-        /// <param name="body">Required parameter: List of user object.</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the void response from the API call.</returns>
-        public async Task CreateUsersWithListInputAsync(
-                List<Models.User> body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<VoidType>()
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/user/createWithList")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("0", CreateErrorCase("successful operation", (_reason, _context) => new ApiException(_reason, _context)))
-)
+                  .ErrorCase("0", CreateErrorCase("successful operation", (_reason, _context) => new ApiException(_reason, _context))))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
@@ -118,8 +88,96 @@ namespace SwaggerPetstore.Standard.Controllers
                       .Template(_template => _template.Setup("username", username))))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Invalid username supplied", (_reason, _context) => new ApiException(_reason, _context)))
-                  .ErrorCase("404", CreateErrorCase("User not found", (_reason, _context) => new ApiException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.User>(_response)))
+                  .ErrorCase("404", CreateErrorCase("User not found", (_reason, _context) => new ApiException(_reason, _context))))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// This can only be done by the logged in user.
+        /// </summary>
+        /// <param name="username">Required parameter: The name that needs to be deleted.</param>
+        public void DeleteUser(
+                string username)
+            => CoreHelper.RunVoidTask(DeleteUserAsync(username));
+
+        /// <summary>
+        /// This can only be done by the logged in user.
+        /// </summary>
+        /// <param name="username">Required parameter: The name that needs to be deleted.</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the void response from the API call.</returns>
+        public async Task DeleteUserAsync(
+                string username,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<VoidType>()
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Delete, "/user/{username}")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Template(_template => _template.Setup("username", username))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Invalid username supplied", (_reason, _context) => new ApiException(_reason, _context)))
+                  .ErrorCase("404", CreateErrorCase("User not found", (_reason, _context) => new ApiException(_reason, _context))))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Logs user into the system.
+        /// </summary>
+        /// <param name="username">Required parameter: The user name for login.</param>
+        /// <param name="password">Required parameter: The password for login in clear text.</param>
+        /// <returns>Returns the string response from the API call.</returns>
+        public string LoginUser(
+                string username,
+                string password)
+            => CoreHelper.RunTask(LoginUserAsync(username, password));
+
+        /// <summary>
+        /// Logs user into the system.
+        /// </summary>
+        /// <param name="username">Required parameter: The user name for login.</param>
+        /// <param name="password">Required parameter: The password for login in clear text.</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the string response from the API call.</returns>
+        public async Task<string> LoginUserAsync(
+                string username,
+                string password,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<string>()
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Get, "/user/login")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Query(_query => _query.Setup("username", username))
+                      .Query(_query => _query.Setup("password", password))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Invalid username/password supplied", (_reason, _context) => new ApiException(_reason, _context))))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Creates list of users with given input array.
+        /// </summary>
+        /// <param name="body">Required parameter: List of user object.</param>
+        public void CreateUsersWithListInput(
+                List<Models.User> body)
+            => CoreHelper.RunVoidTask(CreateUsersWithListInputAsync(body));
+
+        /// <summary>
+        /// Creates list of users with given input array.
+        /// </summary>
+        /// <param name="body">Required parameter: List of user object.</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the void response from the API call.</returns>
+        public async Task CreateUsersWithListInputAsync(
+                List<Models.User> body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<VoidType>()
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/user/createWithList")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("0", CreateErrorCase("successful operation", (_reason, _context) => new ApiException(_reason, _context))))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
@@ -153,71 +211,7 @@ namespace SwaggerPetstore.Standard.Controllers
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Invalid user supplied", (_reason, _context) => new ApiException(_reason, _context)))
-                  .ErrorCase("404", CreateErrorCase("User not found", (_reason, _context) => new ApiException(_reason, _context)))
-)
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// This can only be done by the logged in user.
-        /// </summary>
-        /// <param name="username">Required parameter: The name that needs to be deleted.</param>
-        public void DeleteUser(
-                string username)
-            => CoreHelper.RunVoidTask(DeleteUserAsync(username));
-
-        /// <summary>
-        /// This can only be done by the logged in user.
-        /// </summary>
-        /// <param name="username">Required parameter: The name that needs to be deleted.</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the void response from the API call.</returns>
-        public async Task DeleteUserAsync(
-                string username,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<VoidType>()
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Delete, "/user/{username}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("username", username))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Invalid username supplied", (_reason, _context) => new ApiException(_reason, _context)))
-                  .ErrorCase("404", CreateErrorCase("User not found", (_reason, _context) => new ApiException(_reason, _context)))
-)
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Logs user into the system.
-        /// </summary>
-        /// <param name="username">Required parameter: The user name for login.</param>
-        /// <param name="password">Required parameter: The password for login in clear text.</param>
-        /// <returns>Returns the string response from the API call.</returns>
-        public string LoginUser(
-                string username,
-                string password)
-            => CoreHelper.RunTask(LoginUserAsync(username, password));
-
-        /// <summary>
-        /// Logs user into the system.
-        /// </summary>
-        /// <param name="username">Required parameter: The user name for login.</param>
-        /// <param name="password">Required parameter: The password for login in clear text.</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the string response from the API call.</returns>
-        public async Task<string> LoginUserAsync(
-                string username,
-                string password,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<string>()
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/user/login")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Query(_query => _query.Setup("username", username))
-                      .Query(_query => _query.Setup("password", password))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Invalid username/password supplied", (_reason, _context) => new ApiException(_reason, _context)))
-)
+                  .ErrorCase("404", CreateErrorCase("User not found", (_reason, _context) => new ApiException(_reason, _context))))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
@@ -237,8 +231,7 @@ namespace SwaggerPetstore.Standard.Controllers
                   .Setup(HttpMethod.Get, "/user/logout")
                   .WithAuth("global"))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("0", CreateErrorCase("successful operation", (_reason, _context) => new ApiException(_reason, _context)))
-)
+                  .ErrorCase("0", CreateErrorCase("successful operation", (_reason, _context) => new ApiException(_reason, _context))))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
@@ -266,8 +259,7 @@ namespace SwaggerPetstore.Standard.Controllers
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("0", CreateErrorCase("successful operation", (_reason, _context) => new ApiException(_reason, _context)))
-)
+                  .ErrorCase("0", CreateErrorCase("successful operation", (_reason, _context) => new ApiException(_reason, _context))))
               .ExecuteAsync(cancellationToken);
     }
 }

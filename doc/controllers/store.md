@@ -13,9 +13,9 @@ StoreController storeController = client.StoreController;
 ## Methods
 
 * [Place Order](../../doc/controllers/store.md#place-order)
+* [Get Inventory](../../doc/controllers/store.md#get-inventory)
 * [Get Order by Id](../../doc/controllers/store.md#get-order-by-id)
 * [Delete Order](../../doc/controllers/store.md#delete-order)
-* [Get Inventory](../../doc/controllers/store.md#get-inventory)
 
 
 # Place Order
@@ -31,7 +31,7 @@ PlaceOrderAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.Order`](../../doc/models/order.md) | Body, Required | order placed for purchasing the pet |
+| `body` | [`Order`](../../doc/models/order.md) | Body, Required | order placed for purchasing the pet |
 
 ## Response Type
 
@@ -60,6 +60,33 @@ catch (ApiException e)
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 400 | Invalid Order | `ApiException` |
+
+
+# Get Inventory
+
+Returns a map of status codes to quantities
+
+```csharp
+GetInventoryAsync()
+```
+
+## Response Type
+
+`Task<Dictionary<string, int>>`
+
+## Example Usage
+
+```csharp
+try
+{
+    Dictionary<string, int> result = await storeController.GetInventoryAsync();
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
 
 
 # Get Order by Id
@@ -144,31 +171,4 @@ catch (ApiException e)
 |  --- | --- | --- |
 | 400 | Invalid ID supplied | `ApiException` |
 | 404 | Order not found | `ApiException` |
-
-
-# Get Inventory
-
-Returns a map of status codes to quantities
-
-```csharp
-GetInventoryAsync()
-```
-
-## Response Type
-
-`Task<Dictionary<string, int>>`
-
-## Example Usage
-
-```csharp
-try
-{
-    Dictionary<string, int> result = await storeController.GetInventoryAsync();
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
 

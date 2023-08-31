@@ -60,8 +60,26 @@ namespace SwaggerPetstore.Standard.Controllers
                       .Body(_bodyParameter => _bodyParameter.Setup(body))
                       .Header(_header => _header.Setup("Content-Type", "application/json"))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Invalid Order", (_reason, _context) => new ApiException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.Order>(_response)))
+                  .ErrorCase("400", CreateErrorCase("Invalid Order", (_reason, _context) => new ApiException(_reason, _context))))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Returns a map of status codes to quantities.
+        /// </summary>
+        /// <returns>Returns the Dictionary of string, int response from the API call.</returns>
+        public Dictionary<string, int> GetInventory()
+            => CoreHelper.RunTask(GetInventoryAsync());
+
+        /// <summary>
+        /// Returns a map of status codes to quantities.
+        /// </summary>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the Dictionary of string, int response from the API call.</returns>
+        public async Task<Dictionary<string, int>> GetInventoryAsync(CancellationToken cancellationToken = default)
+            => await CreateApiCall<Dictionary<string, int>>()
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Get, "/store/inventory")
+                  .WithAuth("global"))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
@@ -90,8 +108,7 @@ namespace SwaggerPetstore.Standard.Controllers
                       .Template(_template => _template.Setup("orderId", orderId))))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Invalid ID supplied", (_reason, _context) => new ApiException(_reason, _context)))
-                  .ErrorCase("404", CreateErrorCase("Order not found", (_reason, _context) => new ApiException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.Order>(_response)))
+                  .ErrorCase("404", CreateErrorCase("Order not found", (_reason, _context) => new ApiException(_reason, _context))))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
@@ -119,29 +136,7 @@ namespace SwaggerPetstore.Standard.Controllers
                       .Template(_template => _template.Setup("orderId", orderId))))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Invalid ID supplied", (_reason, _context) => new ApiException(_reason, _context)))
-                  .ErrorCase("404", CreateErrorCase("Order not found", (_reason, _context) => new ApiException(_reason, _context)))
-)
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Returns a map of status codes to quantities.
-        /// </summary>
-        /// <returns>Returns the Dictionary of string, int response from the API call.</returns>
-        public Dictionary<string, int> GetInventory()
-            => CoreHelper.RunTask(GetInventoryAsync());
-
-        /// <summary>
-        /// Returns a map of status codes to quantities.
-        /// </summary>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the Dictionary of string, int response from the API call.</returns>
-        public async Task<Dictionary<string, int>> GetInventoryAsync(CancellationToken cancellationToken = default)
-            => await CreateApiCall<Dictionary<string, int>>()
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Get, "/store/inventory")
-                  .WithAuth("global"))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Dictionary<string, int>>(_response)))
+                  .ErrorCase("404", CreateErrorCase("Order not found", (_reason, _context) => new ApiException(_reason, _context))))
               .ExecuteAsync(cancellationToken);
     }
 }

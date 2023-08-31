@@ -12,15 +12,15 @@ Find out more about Swagger: [http://swagger.io](http://swagger.io)
 If you are building with .NET CLI tools then you can also use the following command:
 
 ```bash
-dotnet add package RepoTestSDK --version 1.1.9
+dotnet add package RepoTestSDK --version 2.3.363
 ```
 
 You can also view the package at:
-https://www.nuget.org/packages/RepoTestSDK/1.1.9
+https://www.nuget.org/packages/RepoTestSDK/2.3.363
 
 ## Initialize the API Client
 
-**_Note:_** Documentation for the client can be found [here.](https://www.github.com/sdks-io/csharpSDK-new/tree/1.1.9/doc/client.md)
+**_Note:_** Documentation for the client can be found [here.](https://www.github.com/sdks-io/csharpSDK-new/tree/2.3.363/doc/client.md)
 
 The following parameters are configurable for the API Client:
 
@@ -45,19 +45,19 @@ This API uses `Custom Authentication`.
 
 ## List of APIs
 
-* [Pet](https://www.github.com/sdks-io/csharpSDK-new/tree/1.1.9/doc/controllers/pet.md)
-* [Store](https://www.github.com/sdks-io/csharpSDK-new/tree/1.1.9/doc/controllers/store.md)
-* [User](https://www.github.com/sdks-io/csharpSDK-new/tree/1.1.9/doc/controllers/user.md)
+* [Pet](https://www.github.com/sdks-io/csharpSDK-new/tree/2.3.363/doc/controllers/pet.md)
+* [Store](https://www.github.com/sdks-io/csharpSDK-new/tree/2.3.363/doc/controllers/store.md)
+* [User](https://www.github.com/sdks-io/csharpSDK-new/tree/2.3.363/doc/controllers/user.md)
 
 ## Classes Documentation
 
-* [Utility Classes](https://www.github.com/sdks-io/csharpSDK-new/tree/1.1.9/doc/utility-classes.md)
-* [HttpRequest](https://www.github.com/sdks-io/csharpSDK-new/tree/1.1.9/doc/http-request.md)
-* [HttpResponse](https://www.github.com/sdks-io/csharpSDK-new/tree/1.1.9/doc/http-response.md)
-* [HttpStringResponse](https://www.github.com/sdks-io/csharpSDK-new/tree/1.1.9/doc/http-string-response.md)
-* [HttpContext](https://www.github.com/sdks-io/csharpSDK-new/tree/1.1.9/doc/http-context.md)
-* [HttpClientConfiguration](https://www.github.com/sdks-io/csharpSDK-new/tree/1.1.9/doc/http-client-configuration.md)
-* [HttpClientConfiguration Builder](https://www.github.com/sdks-io/csharpSDK-new/tree/1.1.9/doc/http-client-configuration-builder.md)
-* [IAuthManager](https://www.github.com/sdks-io/csharpSDK-new/tree/1.1.9/doc/i-auth-manager.md)
-* [ApiException](https://www.github.com/sdks-io/csharpSDK-new/tree/1.1.9/doc/api-exception.md)
+* [Utility Classes](https://www.github.com/sdks-io/csharpSDK-new/tree/2.3.363/doc/utility-classes.md)
+* [HttpRequest](https://www.github.com/sdks-io/csharpSDK-new/tree/2.3.363/doc/http-request.md)
+* [HttpResponse](https://www.github.com/sdks-io/csharpSDK-new/tree/2.3.363/doc/http-response.md)
+* [HttpStringResponse](https://www.github.com/sdks-io/csharpSDK-new/tree/2.3.363/doc/http-string-response.md)
+* [HttpContext](https://www.github.com/sdks-io/csharpSDK-new/tree/2.3.363/doc/http-context.md)
+* [HttpClientConfiguration](https://www.github.com/sdks-io/csharpSDK-new/tree/2.3.363/doc/http-client-configuration.md)
+* [HttpClientConfiguration Builder](https://www.github.com/sdks-io/csharpSDK-new/tree/2.3.363/doc/http-client-configuration-builder.md)
+* [IAuthManager](https://www.github.com/sdks-io/csharpSDK-new/tree/2.3.363/doc/i-auth-manager.md)
+* [ApiException](https://www.github.com/sdks-io/csharpSDK-new/tree/2.3.363/doc/api-exception.md)
 

@@ -10,6 +10,7 @@ namespace SwaggerPetstore.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using SwaggerPetstore.Standard;
@@ -80,7 +81,7 @@ namespace SwaggerPetstore.Standard.Models
         /// <summary>
         /// Order Status
         /// </summary>
-        [JsonProperty("status", ItemConverterType = typeof(StringEnumConverter), NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
         public Models.Status1Enum? Status { get; set; }
 
         /// <summary>

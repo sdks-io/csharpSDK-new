@@ -10,6 +10,7 @@ namespace SwaggerPetstore.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using SwaggerPetstore.Standard;
@@ -145,12 +146,12 @@ namespace SwaggerPetstore.Standard.Models
         protected void ToString(List<string> toStringOutput)
         {
             toStringOutput.Add($"this.Id = {(this.Id == null ? "null" : this.Id.ToString())}");
-            toStringOutput.Add($"this.Username = {(this.Username == null ? "null" : this.Username == string.Empty ? "" : this.Username)}");
-            toStringOutput.Add($"this.FirstName = {(this.FirstName == null ? "null" : this.FirstName == string.Empty ? "" : this.FirstName)}");
-            toStringOutput.Add($"this.LastName = {(this.LastName == null ? "null" : this.LastName == string.Empty ? "" : this.LastName)}");
-            toStringOutput.Add($"this.Email = {(this.Email == null ? "null" : this.Email == string.Empty ? "" : this.Email)}");
-            toStringOutput.Add($"this.Password = {(this.Password == null ? "null" : this.Password == string.Empty ? "" : this.Password)}");
-            toStringOutput.Add($"this.Phone = {(this.Phone == null ? "null" : this.Phone == string.Empty ? "" : this.Phone)}");
+            toStringOutput.Add($"this.Username = {(this.Username == null ? "null" : this.Username)}");
+            toStringOutput.Add($"this.FirstName = {(this.FirstName == null ? "null" : this.FirstName)}");
+            toStringOutput.Add($"this.LastName = {(this.LastName == null ? "null" : this.LastName)}");
+            toStringOutput.Add($"this.Email = {(this.Email == null ? "null" : this.Email)}");
+            toStringOutput.Add($"this.Password = {(this.Password == null ? "null" : this.Password)}");
+            toStringOutput.Add($"this.Phone = {(this.Phone == null ? "null" : this.Phone)}");
             toStringOutput.Add($"this.UserStatus = {(this.UserStatus == null ? "null" : this.UserStatus.ToString())}");
         }
     }

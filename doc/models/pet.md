@@ -10,11 +10,11 @@
 | Name | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `Id` | `long?` | Optional | - |
-| `Category` | [`Models.Category`](../../doc/models/category.md) | Optional | - |
+| `Category` | [`Category`](../../doc/models/category.md) | Optional | - |
 | `Name` | `string` | Required | - |
 | `PhotoUrls` | `List<string>` | Required | - |
-| `Tags` | [`List<Models.Tag>`](../../doc/models/tag.md) | Optional | - |
-| `Status` | [`Models.StatusEnum?`](../../doc/models/status-enum.md) | Optional | pet status in the store |
+| `Tags` | [`List<Tag>`](../../doc/models/tag.md) | Optional | - |
+| `Status` | [`StatusEnum?`](../../doc/models/status-enum.md) | Optional | pet status in the store |
 
 ## Example (as JSON)
 

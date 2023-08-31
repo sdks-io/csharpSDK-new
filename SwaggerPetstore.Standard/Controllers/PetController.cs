@@ -35,6 +35,34 @@ namespace SwaggerPetstore.Standard.Controllers
         internal PetController(GlobalConfiguration globalConfiguration) : base(globalConfiguration) { }
 
         /// <summary>
+        /// Add a new pet to the store.
+        /// </summary>
+        /// <param name="body">Required parameter: Pet object that needs to be added to the store.</param>
+        public void Inpet(
+                Models.Pet body)
+            => CoreHelper.RunVoidTask(InpetAsync(body));
+
+        /// <summary>
+        /// Add a new pet to the store.
+        /// </summary>
+        /// <param name="body">Required parameter: Pet object that needs to be added to the store.</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the void response from the API call.</returns>
+        public async Task InpetAsync(
+                Models.Pet body,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<VoidType>()
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Post, "/pet")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Body(_bodyParameter => _bodyParameter.Setup(body))
+                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("405", CreateErrorCase("Invalid input", (_reason, _context) => new ApiException(_reason, _context))))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
         /// uploads an image.
         /// </summary>
         /// <param name="petId">Required parameter: ID of pet to update.</param>
@@ -68,37 +96,6 @@ namespace SwaggerPetstore.Standard.Controllers
                       .Template(_template => _template.Setup("petId", petId))
                       .Form(_form => _form.Setup("additionalMetadata", additionalMetadata))
                       .Form(_form => _form.Setup("file", file))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.ApiResponse>(_response)))
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Add a new pet to the store.
-        /// </summary>
-        /// <param name="body">Required parameter: Pet object that needs to be added to the store.</param>
-        public void Inpet(
-                Models.Pet body)
-            => CoreHelper.RunVoidTask(InpetAsync(body));
-
-        /// <summary>
-        /// Add a new pet to the store.
-        /// </summary>
-        /// <param name="body">Required parameter: Pet object that needs to be added to the store.</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the void response from the API call.</returns>
-        public async Task InpetAsync(
-                Models.Pet body,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<VoidType>()
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Post, "/pet")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Body(_bodyParameter => _bodyParameter.Setup(body))
-                      .Header(_header => _header.Setup("Content-Type", "application/json"))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("405", CreateErrorCase("Invalid input", (_reason, _context) => new ApiException(_reason, _context)))
-)
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
@@ -128,8 +125,7 @@ namespace SwaggerPetstore.Standard.Controllers
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Invalid ID supplied", (_reason, _context) => new ApiException(_reason, _context)))
                   .ErrorCase("404", CreateErrorCase("Pet not found", (_reason, _context) => new ApiException(_reason, _context)))
-                  .ErrorCase("405", CreateErrorCase("Validation exception", (_reason, _context) => new ApiException(_reason, _context)))
-)
+                  .ErrorCase("405", CreateErrorCase("Validation exception", (_reason, _context) => new ApiException(_reason, _context))))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
@@ -157,8 +153,7 @@ namespace SwaggerPetstore.Standard.Controllers
                   .Parameters(_parameters => _parameters
                       .Query(_query => _query.Setup("status", status?.Select(a => ApiHelper.JsonSerialize(a).Trim('\"')).ToList()))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Invalid status value", (_reason, _context) => new ApiException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<List<Models.Pet>>(_response)))
+                  .ErrorCase("400", CreateErrorCase("Invalid status value", (_reason, _context) => new ApiException(_reason, _context))))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
@@ -188,8 +183,7 @@ namespace SwaggerPetstore.Standard.Controllers
                   .Parameters(_parameters => _parameters
                       .Query(_query => _query.Setup("tags", tags))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Invalid tag value", (_reason, _context) => new ApiException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<List<Models.Pet>>(_response)))
+                  .ErrorCase("400", CreateErrorCase("Invalid tag value", (_reason, _context) => new ApiException(_reason, _context))))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
@@ -218,8 +212,40 @@ namespace SwaggerPetstore.Standard.Controllers
                       .Template(_template => _template.Setup("petId", petId))))
               .ResponseHandler(_responseHandler => _responseHandler
                   .ErrorCase("400", CreateErrorCase("Invalid ID supplied", (_reason, _context) => new ApiException(_reason, _context)))
-                  .ErrorCase("404", CreateErrorCase("Pet not found", (_reason, _context) => new ApiException(_reason, _context)))
-                  .Deserializer(_response => ApiHelper.JsonDeserialize<Models.Pet>(_response)))
+                  .ErrorCase("404", CreateErrorCase("Pet not found", (_reason, _context) => new ApiException(_reason, _context))))
+              .ExecuteAsync(cancellationToken);
+
+        /// <summary>
+        /// Deletes a pet.
+        /// </summary>
+        /// <param name="petId">Required parameter: Pet id to delete.</param>
+        /// <param name="apiKey">Optional parameter: Example: .</param>
+        public void DeletePet(
+                long petId,
+                string apiKey = null)
+            => CoreHelper.RunVoidTask(DeletePetAsync(petId, apiKey));
+
+        /// <summary>
+        /// Deletes a pet.
+        /// </summary>
+        /// <param name="petId">Required parameter: Pet id to delete.</param>
+        /// <param name="apiKey">Optional parameter: Example: .</param>
+        /// <param name="cancellationToken"> cancellationToken. </param>
+        /// <returns>Returns the void response from the API call.</returns>
+        public async Task DeletePetAsync(
+                long petId,
+                string apiKey = null,
+                CancellationToken cancellationToken = default)
+            => await CreateApiCall<VoidType>()
+              .RequestBuilder(_requestBuilder => _requestBuilder
+                  .Setup(HttpMethod.Delete, "/pet/{petId}")
+                  .WithAuth("global")
+                  .Parameters(_parameters => _parameters
+                      .Template(_template => _template.Setup("petId", petId))
+                      .Header(_header => _header.Setup("api_key", apiKey))))
+              .ResponseHandler(_responseHandler => _responseHandler
+                  .ErrorCase("400", CreateErrorCase("Invalid ID supplied", (_reason, _context) => new ApiException(_reason, _context)))
+                  .ErrorCase("404", CreateErrorCase("Pet not found", (_reason, _context) => new ApiException(_reason, _context))))
               .ExecuteAsync(cancellationToken);
 
         /// <summary>
@@ -257,42 +283,7 @@ namespace SwaggerPetstore.Standard.Controllers
                       .Form(_form => _form.Setup("name", name))
                       .Form(_form => _form.Setup("status", status))))
               .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("405", CreateErrorCase("Invalid input", (_reason, _context) => new ApiException(_reason, _context)))
-)
-              .ExecuteAsync(cancellationToken);
-
-        /// <summary>
-        /// Deletes a pet.
-        /// </summary>
-        /// <param name="petId">Required parameter: Pet id to delete.</param>
-        /// <param name="apiKey">Optional parameter: Example: .</param>
-        public void DeletePet(
-                long petId,
-                string apiKey = null)
-            => CoreHelper.RunVoidTask(DeletePetAsync(petId, apiKey));
-
-        /// <summary>
-        /// Deletes a pet.
-        /// </summary>
-        /// <param name="petId">Required parameter: Pet id to delete.</param>
-        /// <param name="apiKey">Optional parameter: Example: .</param>
-        /// <param name="cancellationToken"> cancellationToken. </param>
-        /// <returns>Returns the void response from the API call.</returns>
-        public async Task DeletePetAsync(
-                long petId,
-                string apiKey = null,
-                CancellationToken cancellationToken = default)
-            => await CreateApiCall<VoidType>()
-              .RequestBuilder(_requestBuilder => _requestBuilder
-                  .Setup(HttpMethod.Delete, "/pet/{petId}")
-                  .WithAuth("global")
-                  .Parameters(_parameters => _parameters
-                      .Template(_template => _template.Setup("petId", petId))
-                      .Header(_header => _header.Setup("api_key", apiKey))))
-              .ResponseHandler(_responseHandler => _responseHandler
-                  .ErrorCase("400", CreateErrorCase("Invalid ID supplied", (_reason, _context) => new ApiException(_reason, _context)))
-                  .ErrorCase("404", CreateErrorCase("Pet not found", (_reason, _context) => new ApiException(_reason, _context)))
-)
+                  .ErrorCase("405", CreateErrorCase("Invalid input", (_reason, _context) => new ApiException(_reason, _context))))
               .ExecuteAsync(cancellationToken);
     }
 }

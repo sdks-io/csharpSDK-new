@@ -10,6 +10,7 @@ namespace SwaggerPetstore.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using SwaggerPetstore.Standard;
@@ -96,7 +97,7 @@ namespace SwaggerPetstore.Standard.Models
         {
             toStringOutput.Add($"this.Id = {(this.Id == null ? "null" : this.Id.ToString())}");
             toStringOutput.Add($"this.PhotoUrls = {(this.PhotoUrls == null ? "null" : $"[{string.Join(", ", this.PhotoUrls)} ]")}");
-            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name == string.Empty ? "" : this.Name)}");
+            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name)}");
         }
     }
 }

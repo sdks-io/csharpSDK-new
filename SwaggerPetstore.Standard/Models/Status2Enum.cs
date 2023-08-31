@@ -7,14 +7,15 @@ namespace SwaggerPetstore.Standard.Models
     using System.Collections.Generic;
     using System.Linq;
     using System.Runtime.Serialization;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
     using SwaggerPetstore.Standard;
     using SwaggerPetstore.Standard.Utilities;
 
     /// <summary>
     /// Status2Enum.
     /// </summary>
+
     [JsonConverter(typeof(StringEnumConverter))]
     public enum Status2Enum
     {

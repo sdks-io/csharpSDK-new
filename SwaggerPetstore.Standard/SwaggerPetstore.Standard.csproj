@@ -9,13 +9,13 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>RepoTestSDK</AssemblyName>
-    <Version>1.1.9.0</Version>
+    <Version>2.3.363.0</Version>
     <Authors>SUbtain</Authors>
     <Owners></Owners>
     <Product>SwaggerPetstore.Standard</Product>
     <Copyright>Copyright ©  2019</Copyright>
-    <AssemblyVersion>1.1.9.0</AssemblyVersion>
-    <FileVersion>1.1.9.0</FileVersion>
+    <AssemblyVersion>2.3.363.0</AssemblyVersion>
+    <FileVersion>2.3.363.0</FileVersion>
     <Description>this porfile is made to test New repositories </Description>
     <LangVersion>7.3</LangVersion>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
@@ -29,7 +29,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include= "APIMatic.Core" Version= "0.2.*" />
+    <PackageReference Include= "APIMatic.Core" Version= "0.3.*" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <None Include="..\README.md" Pack="true" PackagePath="\"/>
     <None Include="..\LICENSE" Pack="true" PackagePath="\"/>

@@ -14,14 +14,63 @@ PetController petController = client.PetController;
 
 ## Methods
 
-* [Upload File](../../doc/controllers/pet.md#upload-file)
 * [Inpet](../../doc/controllers/pet.md#inpet)
+* [Upload File](../../doc/controllers/pet.md#upload-file)
 * [Update an Pet](../../doc/controllers/pet.md#update-an-pet)
 * [Find Pet in the Status](../../doc/controllers/pet.md#find-pet-in-the-status)
 * [Find Pets an Tags](../../doc/controllers/pet.md#find-pets-an-tags)
 * [Get Pet by Id](../../doc/controllers/pet.md#get-pet-by-id)
-* [Update Pet With Form](../../doc/controllers/pet.md#update-pet-with-form)
 * [Delete Pet](../../doc/controllers/pet.md#delete-pet)
+* [Update Pet With Form](../../doc/controllers/pet.md#update-pet-with-form)
+
+
+# Inpet
+
+Add a new pet to the store
+
+```csharp
+InpetAsync(
+    Models.Pet body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`Pet`](../../doc/models/pet.md) | Body, Required | Pet object that needs to be added to the store |
+
+## Response Type
+
+`Task`
+
+## Example Usage
+
+```csharp
+Pet body = new Pet
+{
+    Name = "name6",
+    PhotoUrls = new List<string>
+    {
+        "photoUrls1",
+    },
+};
+
+try
+{
+    await petController.InpetAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 405 | Invalid input | `ApiException` |
 
 
 # Upload File
@@ -63,55 +112,6 @@ catch (ApiException e)
 ```
 
 
-# Inpet
-
-Add a new pet to the store
-
-```csharp
-InpetAsync(
-    Models.Pet body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`Models.Pet`](../../doc/models/pet.md) | Body, Required | Pet object that needs to be added to the store |
-
-## Response Type
-
-`Task`
-
-## Example Usage
-
-```csharp
-Pet body = new Pet
-{
-    Name = "name6",
-    PhotoUrls = new List<string>
-    {
-        "photoUrls1",
-    },
-};
-
-try
-{
-    await petController.InpetAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 405 | Invalid input | `ApiException` |
-
-
 # Update an Pet
 
 Update an existing pet
@@ -125,7 +125,7 @@ UpdateAnPetAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.Pet`](../../doc/models/pet.md) | Body, Required | Pet object that needs to be added to the store |
+| `body` | [`Pet`](../../doc/models/pet.md) | Body, Required | Pet object that needs to be added to the store |
 
 ## Response Type
 
@@ -176,7 +176,7 @@ FindPetInTheStatusAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `status` | [`List<Models.Status2Enum>`](../../doc/models/status-2-enum.md) | Query, Required | Status values that need to be considered for filter |
+| `status` | [`List<Status2Enum>`](../../doc/models/status-2-enum.md) | Query, Required | Status values that need to be considered for filter |
 
 ## Response Type
 
@@ -185,7 +185,7 @@ FindPetInTheStatusAsync(
 ## Example Usage
 
 ```csharp
-List<Models.Status2Enum> status = new List<Models.Status2Enum>
+List<Status2Enum> status = new List<Status2Enum>
 {
     Status2Enum.Pending,
     Status2Enum.Sold,
@@ -300,6 +300,50 @@ catch (ApiException e)
 | 404 | Pet not found | `ApiException` |
 
 
+# Delete Pet
+
+Deletes a pet
+
+```csharp
+DeletePetAsync(
+    long petId,
+    string apiKey = null)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `petId` | `long` | Template, Required | Pet id to delete |
+| `apiKey` | `string` | Header, Optional | - |
+
+## Response Type
+
+`Task`
+
+## Example Usage
+
+```csharp
+long petId = 152L;
+try
+{
+    await petController.DeletePetAsync(petId, null);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Invalid ID supplied | `ApiException` |
+| 404 | Pet not found | `ApiException` |
+
+
 # Update Pet With Form
 
 Updates a pet in the store with form data
@@ -343,48 +387,4 @@ catch (ApiException e)
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 405 | Invalid input | `ApiException` |
-
-
-# Delete Pet
-
-Deletes a pet
-
-```csharp
-DeletePetAsync(
-    long petId,
-    string apiKey = null)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `petId` | `long` | Template, Required | Pet id to delete |
-| `apiKey` | `string` | Header, Optional | - |
-
-## Response Type
-
-`Task`
-
-## Example Usage
-
-```csharp
-long petId = 152L;
-try
-{
-    await petController.DeletePetAsync(petId, null);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Invalid ID supplied | `ApiException` |
-| 404 | Pet not found | `ApiException` |
 

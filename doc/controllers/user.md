@@ -15,11 +15,11 @@ UserController userController = client.UserController;
 ## Methods
 
 * [Create Users With Array Input](../../doc/controllers/user.md#create-users-with-array-input)
-* [Create Users With List Input](../../doc/controllers/user.md#create-users-with-list-input)
 * [Get User by Name](../../doc/controllers/user.md#get-user-by-name)
-* [Update User](../../doc/controllers/user.md#update-user)
 * [Delete User](../../doc/controllers/user.md#delete-user)
 * [Login User](../../doc/controllers/user.md#login-user)
+* [Create Users With List Input](../../doc/controllers/user.md#create-users-with-list-input)
+* [Update User](../../doc/controllers/user.md#update-user)
 * [Logout User](../../doc/controllers/user.md#logout-user)
 * [Create User](../../doc/controllers/user.md#create-user)
 
@@ -37,7 +37,7 @@ CreateUsersWithArrayInputAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`List<Models.User>`](../../doc/models/user.md) | Body, Required | List of user object |
+| `body` | [`List<User>`](../../doc/models/user.md) | Body, Required | List of user object |
 
 ## Response Type
 
@@ -56,53 +56,6 @@ List<Models.User> body = new List<Models.User>
 try
 {
     await userController.CreateUsersWithArrayInputAsync(body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| Default | successful operation | `ApiException` |
-
-
-# Create Users With List Input
-
-Creates list of users with given input array
-
-```csharp
-CreateUsersWithListInputAsync(
-    List<Models.User> body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `body` | [`List<Models.User>`](../../doc/models/user.md) | Body, Required | List of user object |
-
-## Response Type
-
-`Task`
-
-## Example Usage
-
-```csharp
-List<Models.User> body = new List<Models.User>
-{
-    new User
-    {
-    },
-};
-
-try
-{
-    await userController.CreateUsersWithListInputAsync(body);
 }
 catch (ApiException e)
 {
@@ -157,54 +110,6 @@ catch (ApiException e)
 | HTTP Status Code | Error Description | Exception Class |
 |  --- | --- | --- |
 | 400 | Invalid username supplied | `ApiException` |
-| 404 | User not found | `ApiException` |
-
-
-# Update User
-
-This can only be done by the logged in user.
-
-```csharp
-UpdateUserAsync(
-    string username,
-    Models.User body)
-```
-
-## Parameters
-
-| Parameter | Type | Tags | Description |
-|  --- | --- | --- | --- |
-| `username` | `string` | Template, Required | name that need to be updated |
-| `body` | [`Models.User`](../../doc/models/user.md) | Body, Required | Updated user object |
-
-## Response Type
-
-`Task`
-
-## Example Usage
-
-```csharp
-string username = "username0";
-User body = new User
-{
-};
-
-try
-{
-    await userController.UpdateUserAsync(username, body);
-}
-catch (ApiException e)
-{
-    // TODO: Handle exception here
-    Console.WriteLine(e.Message);
-}
-```
-
-## Errors
-
-| HTTP Status Code | Error Description | Exception Class |
-|  --- | --- | --- |
-| 400 | Invalid user supplied | `ApiException` |
 | 404 | User not found | `ApiException` |
 
 
@@ -294,6 +199,101 @@ catch (ApiException e)
 | 400 | Invalid username/password supplied | `ApiException` |
 
 
+# Create Users With List Input
+
+Creates list of users with given input array
+
+```csharp
+CreateUsersWithListInputAsync(
+    List<Models.User> body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `body` | [`List<User>`](../../doc/models/user.md) | Body, Required | List of user object |
+
+## Response Type
+
+`Task`
+
+## Example Usage
+
+```csharp
+List<Models.User> body = new List<Models.User>
+{
+    new User
+    {
+    },
+};
+
+try
+{
+    await userController.CreateUsersWithListInputAsync(body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| Default | successful operation | `ApiException` |
+
+
+# Update User
+
+This can only be done by the logged in user.
+
+```csharp
+UpdateUserAsync(
+    string username,
+    Models.User body)
+```
+
+## Parameters
+
+| Parameter | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `username` | `string` | Template, Required | name that need to be updated |
+| `body` | [`User`](../../doc/models/user.md) | Body, Required | Updated user object |
+
+## Response Type
+
+`Task`
+
+## Example Usage
+
+```csharp
+string username = "username0";
+User body = new User
+{
+};
+
+try
+{
+    await userController.UpdateUserAsync(username, body);
+}
+catch (ApiException e)
+{
+    // TODO: Handle exception here
+    Console.WriteLine(e.Message);
+}
+```
+
+## Errors
+
+| HTTP Status Code | Error Description | Exception Class |
+|  --- | --- | --- |
+| 400 | Invalid user supplied | `ApiException` |
+| 404 | User not found | `ApiException` |
+
+
 # Logout User
 
 Logs out current logged in user session
@@ -340,7 +340,7 @@ CreateUserAsync(
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `body` | [`Models.User`](../../doc/models/user.md) | Body, Required | Created user object |
+| `body` | [`User`](../../doc/models/user.md) | Body, Required | Created user object |
 
 ## Response Type
 

@@ -10,6 +10,7 @@ namespace SwaggerPetstore.Standard.Models
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using APIMatic.Core.Utilities.Converters;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using SwaggerPetstore.Standard;
@@ -85,7 +86,7 @@ namespace SwaggerPetstore.Standard.Models
         /// <summary>
         /// pet status in the store
         /// </summary>
-        [JsonProperty("status", ItemConverterType = typeof(StringEnumConverter), NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
         public Models.StatusEnum? Status { get; set; }
 
         /// <inheritdoc/>
@@ -126,7 +127,7 @@ namespace SwaggerPetstore.Standard.Models
         {
             toStringOutput.Add($"this.Id = {(this.Id == null ? "null" : this.Id.ToString())}");
             toStringOutput.Add($"this.Category = {(this.Category == null ? "null" : this.Category.ToString())}");
-            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name == string.Empty ? "" : this.Name)}");
+            toStringOutput.Add($"this.Name = {(this.Name == null ? "null" : this.Name)}");
             toStringOutput.Add($"this.PhotoUrls = {(this.PhotoUrls == null ? "null" : $"[{string.Join(", ", this.PhotoUrls)} ]")}");
             toStringOutput.Add($"this.Tags = {(this.Tags == null ? "null" : $"[{string.Join(", ", this.Tags)} ]")}");
             toStringOutput.Add($"this.Status = {(this.Status == null ? "null" : this.Status.ToString())}");
